@@ -1,0 +1,29 @@
+version: '3'
+services:
+  superset:
+    image: apache/superset
+    container_name: superset
+    ports:
+      - "8088:8088"
+    environment:
+      - SUPERSET_SECRET_KEY=q9utf37t3wqfg9wf7bjkwpyqgfqwph08
+    volumes:
+      - ../superset-volume:/var/lib/superset
+    networks:
+      - superset-network
+  influxdb:
+    image: influxdb:latest
+    container_name: influxdb
+    ports:
+      - "8086:8086"
+    environment:
+      - DOCKER_INFLUXDB_INIT_MODE=setup
+      - DOCKER_INFLUXDB_INIT_USERNAME=admin
+      - DOCKER_INFLUXDB_INIT_PASSWORD=admin_password
+      - DOCKER_INFLUXDB_INIT_ORG=IIITA
+      - DOCKER_INFLUXDB_INIT_BUCKET=bda
+      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=my-super-secret-auth-token
+    volumes:
+      - ./influx-volume:/var/lib/influxdb2
+networks:
+  superset-network:
