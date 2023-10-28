@@ -1,16 +1,5 @@
 version: '3'
 services:
-  superset:
-    image: apache/superset
-    container_name: superset
-    ports:
-      - "8088:8088"
-    environment:
-      - SUPERSET_SECRET_KEY=q9utf37t3wqfg9wf7bjkwpyqgfqwph08
-    volumes:
-      - ../superset-volume:/var/lib/superset
-    networks:
-      - superset-network
   influxdb:
     image: influxdb:latest
     container_name: influxdb
@@ -25,5 +14,20 @@ services:
       - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=my-super-secret-auth-token
     volumes:
       - ./influx-volume:/var/lib/influxdb2
+    networks:
+      - bda_project
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    user: "1000"
+    ports:
+      - "3000:3000"
+    depends_on:
+      - influxdb
+    volumes:
+      - ./grafana-data:/var/lib/grafana
+    networks:
+      - bda_project
+
 networks:
-  superset-network:
+  bda_project:

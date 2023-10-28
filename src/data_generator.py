@@ -7,11 +7,11 @@ import pandas as pd
 class DataGenerator:
 
     def __init__(self,
-                 file_loc: str,
-                 measurment: str,
-                 tags: list[str],
-                 time_delay=1,
-                 circular_generator=False) -> None:
+                file_loc: str,
+                measurment: str,
+                tags: list[str],
+                time_delay=1,
+                circular_generator=False) -> None:
         """DataGenerator is used to generate the data from a csv
 
         Args:

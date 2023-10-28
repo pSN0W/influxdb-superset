@@ -6,11 +6,11 @@ from data_generator import DataGenerator
 class Ingestor:
     
     def __init__(self, 
-                 token: str,
-                 org: str,
-                 url: str, 
-                 bucket: str, 
-                 generator: DataGenerator) -> None:
+                token: str,
+                org: str,
+                url: str, 
+                bucket: str, 
+                generator: DataGenerator) -> None:
         """Ingestor is used to ingest the data in influxdb
 
         Args:
