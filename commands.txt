@@ -1,0 +1,7 @@
+#Create kafka topic
+sudo docker exec -it influxdb-superset_kafka_1 kafka-topics --create --topic StreamToSpark --bootstrap-server localhost:29092 --replication-factor 1 --partitions 1
+sudo docker exec -it influxdb-superset_kafka_1 kafka-topics --create --topic SparkToInflux --bootstrap-server localhost:29092 --replication-factor 1 --partitions 1
+
+#Delete topics
+sudo docker exec -it influxdb-superset_kafka_1 kafka-topics --delete --topic StreamToSpark --bootstrap-server localhost:29092
+sudo docker exec -it influxdb-superset_kafka_1 kafka-topics --delete --topic SparkToInflux --bootstrap-server localhost:29092

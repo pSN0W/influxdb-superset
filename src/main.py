@@ -3,8 +3,8 @@ from ingestor import Ingestor
 
 CSV_FILE_LOC='src/datatraining.txt'
 CIRCULAR_GENERATOR = False
-TAGS = ["Occupancy","CO2"]
-TIME_DELAY = 0.1
+TAGS = ["Occupancy"]
+TIME_DELAY = 1
 
 BUCKET="bda"
 MEASURMENT="bda_project"
