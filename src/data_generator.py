@@ -51,7 +51,7 @@ class DataGenerator:
                 "measurement": self.measurment,
                 "tags": tags_values,
                 "fields": field_values,
-                "time": datetime.now()
+                "time": datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ')
             })
             
             yield point
