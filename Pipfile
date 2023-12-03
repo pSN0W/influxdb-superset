@@ -6,6 +6,8 @@ name = "pypi"
 [packages]
 influxdb-client = "*"
 pandas = "*"
+kafka-python = "*"
+pyspark = "*"
 
 [dev-packages]
 

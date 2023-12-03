@@ -1,8 +1,7 @@
 from datetime import datetime
 import time
-
-from influxdb_client import Point
 import pandas as pd
+from kafka_producer import Producer
 
 class DataGenerator:
 
@@ -32,8 +31,9 @@ class DataGenerator:
         
         self.data = df
         self.columns = list(set(df.columns) - set(self.tags))
+        self.producer = Producer("StreamToSpark")
         
-    def get(self) -> Point:
+    def get(self):
         idx = 0
         
         while idx < len(self.data):
@@ -47,13 +47,14 @@ class DataGenerator:
             tags_values = {tag_name:values[tag_name] for tag_name in self.tags}
             field_values = {field_name: values[field_name] for field_name in self.columns}
             
-            point = Point.from_dict({
+            message = {
                 "measurement": self.measurment,
                 "tags": tags_values,
                 "fields": field_values,
                 "time": datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ')
-            })
+            }
             
-            yield point
+            message_str = str(message)
+            self.producer.send_message(message_str)
             
             time.sleep(self.time_delay)
