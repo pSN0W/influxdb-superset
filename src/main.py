@@ -2,7 +2,7 @@ from data_generator import DataGenerator
 from ingestor import Ingestor
 
 CSV_FILE_LOC='src/datatraining.txt'
-CIRCULAR_GENERATOR = False
+CIRCULAR_GENERATOR = True
 TAGS = ["Occupancy"]
 TIME_DELAY = 1
 
@@ -20,15 +20,4 @@ if __name__ == '__main__':
         time_delay=TIME_DELAY,
         circular_generator=CIRCULAR_GENERATOR
     )
-    ingestor = Ingestor(
-        token=TOKEN,
-        org=ORGANISATION,
-        url=URL,
-        bucket=BUCKET,
-        generator=generator
-    )
-    try:
-        ingestor.ingest()
-    except KeyboardInterrupt:
-        print("Stopping Data Ingestion")
-        print("Exiting Gracefully")
+    generator.get()

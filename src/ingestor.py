@@ -1,7 +1,6 @@
 from influxdb_client import InfluxDBClient
 from influxdb_client.client.write_api import SYNCHRONOUS
 
-from data_generator import DataGenerator
 
 class Ingestor:
     
@@ -9,8 +8,8 @@ class Ingestor:
                 token: str,
                 org: str,
                 url: str, 
-                bucket: str, 
-                generator: DataGenerator) -> None:
+                bucket: str
+                ) -> None:
         """Ingestor is used to ingest the data in influxdb
 
         Args:
@@ -21,17 +20,15 @@ class Ingestor:
             generator (DataGenerator): A generator whose get function can be called to get a datapoint
         """ 
         
-        self.generator = generator
         self.bucket = bucket
         self.org = org
         
         self.client = InfluxDBClient(url=url, token=token, org=org)
         
-    def ingest(self) -> None:
+    def ingest(self,point) -> None:
         with self.client.write_api(write_options=SYNCHRONOUS) as write_client:
-            for point in self.generator.get():
-                write_client.write(
-                    bucket=self.bucket,
-                    org=self.org,
-                    record=point
-                )
+            write_client.write(
+                bucket=self.bucket,
+                org=self.org,
+                record=point
+            )
